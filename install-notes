@@ -1,0 +1,28 @@
+NixOS Install
+------------------
+boot partition
+  boot flag
+  fat32
+  mount: /boot
+swap partition
+  swap flag
+  1.2x RAM
+root partition
+  root flag
+  mount: /
+
+
+Post Install
+------------------
+- delete old nixos generations
+    nix-env --delete-generations old
+
+- create mbsync/gmail password file
+  - create gnupg user:
+      gpg --full-gen-key
+  - create gpg file with password example:
+      1. run following command
+        gpg --encrypt -o ~/.gnupg/{filename}.gpg -r {username}
+      2. enter password on stdin
+      3. press enter
+      4. press ctrl + d

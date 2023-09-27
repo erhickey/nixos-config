@@ -1,0 +1,38 @@
+set mbox_type=Maildir
+set folder=~/.mail/[Gmail]/'All Mail'
+set spoolfile=+/
+set header_cache=~/.cache/mutt
+set trash=~/.mail/[Gmail]/Trash
+
+# display/pager
+ignore *                                # ignore all headers
+unignore from: to: cc: date: subject:   # show only these
+hdr_order date: from: to: cc: subject:  # and in this order
+set date_format = "%m/%d/%y"
+set pager_format="%4C %Z %[!%b %e at %I:%M %p]  %.20n  %s%* -- (%P)"
+set text_flowed
+# set sort=threads                        # like gmail
+# set strict_threads=yes
+# set uncollapse_jump                     # don't collapse on an unread message
+# set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+# set delete
+# unset confirmappend
+# unset mark_old
+# set quit
+# set pipe_decode
+# set thorough_search
+# set auto_tag=yes
+# set pager_index_lines=6    # number of index lines to show
+# set pager_context=2        # number of context lines to show
+# set pager_stop             # don't go to next message automatically
+# set menu_scroll            # scroll in menus
+# set tilde                  # show tildes like in vim
+# unset markers              # no ugly plus signs
+# unset resolve
+# set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+# # auto_view text/html
+# alternative_order text/plain text/enriched text/html
+# set mailcap_path=~/.mutt/mailcap
+# set display_filter="sh ~/.mutt/display"
+macro attach s <save-entry><bol>~/Downloads/<eol>
+# set sort_alias = alias

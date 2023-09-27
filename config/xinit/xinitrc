@@ -1,0 +1,4 @@
+feh --no-fehbg --bg-fill ~/.config/background.jpg
+picom -b
+polybar mybar 2>&1 | tee -a /tmp/polybar.log & disown
+exec xmonad
