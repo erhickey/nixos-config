@@ -25,7 +25,7 @@
       in {
         hp-notebook = mkNixOSHost "hp-notebook" "x86_64-linux";
         hp-laptop = mkNixOSHost "hp-laptop" "x86_64-linux";
-        rivet-thinkpad = mkNixOSHost "rivet" "x86_64-linux";
+        rivet-thinkpad = mkNixOSHost "rivet-thinkpad" "x86_64-linux";
       };
   };
 }
