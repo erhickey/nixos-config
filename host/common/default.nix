@@ -99,6 +99,7 @@
     tree
     vim
     vlc
+    xclip
     xmonad-with-packages
     zig                   # treesitter dependency
     (polybar.override { pulseSupport = true; })
