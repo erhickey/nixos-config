@@ -20,5 +20,8 @@
 
   networking.hostName = "rivet";
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
   virtualisation.docker.enable = true;
 }
