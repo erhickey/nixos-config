@@ -16,6 +16,10 @@
       homeDirectory = "/home/${config.username}";
 
       file = {
+        ".bash_autoload/zz_startx.sh" = {
+          source = ../../config/bash_autoload/zz_startx.sh;
+        };
+
         ".config/background.jpg" = {
           source = ../../config/wallpaper/calvin-hobbes-autumn.jpg;
         };
