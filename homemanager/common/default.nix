@@ -10,6 +10,8 @@
   home-manager.useUserPackages = true;
 
   home-manager.users.${config.username} = {
+    programs.home-manager.enable = true;
+
     home = {
       stateVersion = "${config.nixos-version}";
       username = "${config.username}";
@@ -22,10 +24,6 @@
 
         ".config/background.jpg" = {
           source = ../../config/wallpaper/calvin-hobbes-autumn.jpg;
-        };
-
-        ".config/pavucontrol.ini" = {
-          source = ../../config/pavucontrol/pavucontrol.ini;
         };
 
         ".config/picom.conf" = {
@@ -44,9 +42,6 @@
           source = ../../config/xmonad/xmonad.hs;
         };
       };
-    };
-    programs = {
-      home-manager.enable = true;
     };
   };
 }
