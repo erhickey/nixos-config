@@ -24,4 +24,6 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   virtualisation.docker.enable = true;
+
+  networking.extraHosts = ''172.12.1.0 rivet'';
 }

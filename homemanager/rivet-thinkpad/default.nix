@@ -36,6 +36,11 @@
           source = ../../config/polybar/mail.sh;
           executable = true;
         };
+
+        ".bash_autoload/rivet-thinkpad.misc.sh" = {
+          source = ../../config/bash_autoload/rivet-thinkpad.misc.sh;
+          executable = true;
+        };
       };
     };
   };
