@@ -1,4 +1,9 @@
 { config, pkgs, home-manager, ... }:
+let
+  uname = "${config.username}";
+  version = "${config.nixos-version}";
+  configFiles = "${config.config-files}";
+in
 {
   imports = [
     home-manager.nixosModule
@@ -9,13 +14,13 @@
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
 
-  home-manager.users.${config.username} = {
+  home-manager.users.${config.username} = { config, ... }: {
     programs.home-manager.enable = true;
 
     home = {
-      stateVersion = "${config.nixos-version}";
-      username = "${config.username}";
-      homeDirectory = "/home/${config.username}";
+      stateVersion = version;
+      username = uname;
+      homeDirectory = "/home/${uname}";
 
       file = {
         ".bash_autoload/zz_startx.sh" = {
@@ -39,7 +44,7 @@
         };
 
         ".xmonad/xmonad.hs" = {
-          source = ../../config/xmonad/xmonad.hs;
+          source = config.lib.file.mkOutOfStoreSymlink "${configFiles}/xmonad/xmonad.hs";
         };
       };
     };
