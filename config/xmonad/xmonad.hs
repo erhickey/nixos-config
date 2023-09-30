@@ -1,6 +1,6 @@
 import XMonad
-  ( Full(Full), Tall(Tall), borderWidth, className, composeAll, def, doFloat, focusFollowsMouse
-  , layoutHook , manageHook, spawn , startupHook, terminal, workspaces, xmonad, (-->), (=?), (|||), (<+>)
+  ( Full(Full), Tall(Tall), borderWidth, className, composeAll, def, doFloat, focusFollowsMouse, layoutHook
+  , manageHook, spawn, startupHook, terminal, windows, workspaces, xmonad, (-->), (=?), (|||), (<+>)
   )
 import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.InsertPosition (Focus(Newer), Position(Below), insertPosition)
@@ -8,6 +8,7 @@ import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers (doCenterFloat, isDialog)
 import XMonad.Layout.PerWorkspace (onWorkspace)
 import XMonad.Layout.Spacing (spacingWithEdge)
+import qualified XMonad.StackSet as W
 import XMonad.Util.Cursor (setDefaultCursor, xC_left_ptr)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Ungrab (unGrab)
@@ -40,6 +41,25 @@ myManageHook = insertPosition Below Newer <+> composeAll
 
 myStartupHook = setDefaultCursor xC_left_ptr
 
+-- use W.view instead of W.greedyView
+switchWorkspaceKeys =
+  [
+    (otherModMasks ++ "M-" ++ [key], action tag)
+    | (tag, key)  <- zip myWorkspaces "1234"
+    , (otherModMasks, action) <- [("", windows . W.view), ("S-", windows . W.shift)]
+  ]
+
+-- key map creation details:
+-- https://xmonad.github.io/xmonad-docs/xmonad-contrib/XMonad-Util-EZConfig.html#v:mkKeymap
+myKeys =
+  [ ("M-b", spawn "qutebrowser")
+  , ("M-<Return>", spawn "st tmux")
+  , ("M-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 ~/tmp/$(date +%Y_%m_%d__%H_%M_%S_maim).png")
+  , ("M-S-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 | xclip -selection clipboard -t image/png")
+  , ("M-p", spawn "dmenu_run -i -fn 'LiterationMono Nerd Font'")
+  , ("M-g", spawn "google-chrome-stable")
+  ] ++ switchWorkspaceKeys
+
 myConfig = def
     { terminal = "st"
     , borderWidth = 0
@@ -49,14 +69,6 @@ myConfig = def
     , layoutHook = myLayout
     , startupHook = myStartupHook
     }
-    `additionalKeysP`
-    -- key map creation details:
-    -- https://xmonad.github.io/xmonad-docs/xmonad-contrib/XMonad-Util-EZConfig.html#v:mkKeymap
-    [ ("M-b", spawn "qutebrowser")
-    , ("M-<Return>", spawn "st tmux")
-    , ("M-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 ~/tmp/$(date +%Y_%m_%d__%H_%M_%S_maim).png")
-    , ("M-S-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 | xclip -selection clipboard -t image/png")
-    , ("M-p", spawn "dmenu_run -i -fn 'LiterationMono Nerd Font'")
-    ]
+    `additionalKeysP` myKeys
 
 main = xmonad . docks . ewmh $ myConfig
