@@ -56,7 +56,7 @@
 
   users.users.${config.username} = {
     isNormalUser = true;
-    extraGroups = [ "audio" "docker" "networkmanager" "video" "wheel" ];
+    extraGroups = [ "audio" "networkmanager" "video" "wheel" ];
     shell = pkgs.bash;
   };
 

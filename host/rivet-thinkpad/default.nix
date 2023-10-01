@@ -1,4 +1,8 @@
 { config, lib, pkgs, ... }:
+let
+  userId = 1000;
+  groupId = 100;
+in
 {
   imports =
     [
@@ -6,26 +10,50 @@
       ../common
     ];
 
-  # Force use of the thinkpad_acpi driver for backlight control.
-  # This allows the backlight save/load systemd service to work.
-  # boot.kernelParams = [
-  #   "acpi_backlight=native"
-  # ];
-
-  # acpi_call makes tlp work for newer thinkpads
-  # boot = lib.mkIf config.services.tlp.enable {
-  #   kernelModules = [ "acpi_call" ];
-  #   extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
-  # };
-
   networking.hostName = "rivet";
 
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  virtualisation.docker.enable = true;
+  environment.systemPackages = with pkgs; [
+    git-lfs
+  ];
+
+  virtualisation.docker = {
+    enable = true;
+
+    daemon.settings = {
+      experimental = true;
+    };
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
 
   networking.extraHosts = ''172.12.1.0 rivet'';
+
+  users.groups.users.gid = groupId;
+
+  users.users.${config.username} = {
+    uid = userId;
+
+    extraGroups = [ "docker" ];
+
+    subGidRanges = [
+      {
+        count = 65535;
+        startGid = groupId;
+      }
+    ];
+    subUidRanges = [
+      {
+        count = 65535;
+        startUid = userId;
+      }
+    ];
+  };
 
   services.autorandr = {
     enable = true;
