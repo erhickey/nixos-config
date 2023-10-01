@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mail_dir="$HOME/.mail/[Gmail]"
+mail_dir="$1"
 new=0
 
 if [ -d "$mail_dir" ] ; then

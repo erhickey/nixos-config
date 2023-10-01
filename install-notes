@@ -26,3 +26,6 @@ Post Install
       2. enter password on stdin
       3. press enter
       4. press ctrl + d
+
+- import openvpn file
+    nmcli connection import type openvpn file {file}
