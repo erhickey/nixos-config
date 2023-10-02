@@ -44,7 +44,7 @@
 
   networking.networkmanager.enable = true;
 
-  sound.enable = true;
+  sound.enable = false;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -78,7 +78,10 @@
     '';
   };
 
+  programs.light.enable = true;
+
   environment.systemPackages = with pkgs; [
+    alsa-utils
     bat
     bc
     bottom

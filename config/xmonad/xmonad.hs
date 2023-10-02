@@ -58,6 +58,12 @@ myKeys =
   , ("M-S-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 | xclip -selection clipboard -t image/png")
   , ("M-p", spawn "dmenu_run -i -fn 'LiterationMono Nerd Font'")
   , ("M-g", spawn "google-chrome-stable")
+  , ("<XF86AudioMute>", spawn "amixer -D pipewire set Master 1+ toggle")
+  , ("<XF86AudioLowerVolume>", spawn "amixer -D pipewire set Master 5%- unmute")
+  , ("<XF86AudioRaiseVolume>", spawn "amixer -D pipewire set Master 5%+ unmute")
+  , ("<XF86AudioMicMute>", spawn "amixer -D pipewire set Capture toggle")
+  , ("<XF86MonBrightnessDown>", spawn "light -U 5")
+  , ("<XF86MonBrightnessUp>", spawn "light -A 5")
   ] ++ switchWorkspaceKeys
 
 myConfig = def
