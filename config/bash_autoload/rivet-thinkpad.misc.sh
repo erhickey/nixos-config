@@ -4,7 +4,7 @@ function import_vpn() {
   nmcli connection import type openvpn file "$1"
 
   # activate connection:
-  # nmcli con up id CONNECTION_ID
+  # sudo nmcli con up id CONNECTION_ID
   #
   # show connection info (inactive connections display -- under DEVICE):
   # nmcli con
