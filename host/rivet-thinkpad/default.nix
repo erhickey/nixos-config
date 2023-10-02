@@ -1,8 +1,4 @@
 { config, lib, pkgs, ... }:
-let
-  userId = 1000;
-  groupId = 100;
-in
 {
   imports =
     [
@@ -11,6 +7,7 @@ in
     ];
 
   networking.hostName = "rivet";
+  networking.extraHosts = ''172.12.1.0 rivet'';
 
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -29,31 +26,14 @@ in
     rootless = {
       enable = true;
       setSocketVariable = true;
+
+      daemon.settings = {
+        experimental = true;
+      };
     };
   };
 
-  networking.extraHosts = ''172.12.1.0 rivet'';
-
-  users.groups.users.gid = groupId;
-
-  users.users.${config.username} = {
-    uid = userId;
-
-    extraGroups = [ "docker" ];
-
-    subGidRanges = [
-      {
-        count = 65535;
-        startGid = groupId;
-      }
-    ];
-    subUidRanges = [
-      {
-        count = 65535;
-        startUid = userId;
-      }
-    ];
-  };
+  users.users.${config.username}.extraGroups = [ "docker" ];
 
   services.autorandr = {
     enable = true;
