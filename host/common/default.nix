@@ -83,8 +83,10 @@
     bc
     bottom
     dmenu
+    dnsutils
     fd
     feh
+    file
     firefox
     fzf
     ghc
