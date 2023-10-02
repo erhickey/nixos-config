@@ -42,11 +42,6 @@
           executable = true;
         };
 
-        ".config/polybar/toggle_connection.sh" = {
-          source = ../../config/polybar/toggle_connection.sh;
-          executable = true;
-        };
-
         ".bash_autoload/rivet-thinkpad.misc.sh" = {
           source = ../../config/bash_autoload/rivet-thinkpad.misc.sh;
           executable = true;
