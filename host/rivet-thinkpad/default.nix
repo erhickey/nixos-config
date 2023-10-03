@@ -34,10 +34,14 @@
   users.users.${config.username}.extraGroups = [ "docker" ];
 
   boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  services.xserver = {
+    videoDrivers = [ "amdgpu" ];
+    dpi = 79;
+  };
 
   services.autorandr = {
     enable = true;
+    hooks.postswitch.redrawBg = "feh --no-fehbg --bg-fill ~/.config/background.jpg";
 
     profiles = {
       "dual" = {
@@ -79,6 +83,6 @@
   };
 
   services.udev.extraRules = ''
-    ACTION=="change", SUBSYSTEM=="drm", RUN+="${pkgs.autorandr}/bin/autorandr -c && feh --no-fehbg --bg-fill ~/.config/background.jpg"
+    ACTION=="change", SUBSYSTEM=="drm", RUN+="${pkgs.autorandr}/bin/autorandr -c"
   '';
 }
