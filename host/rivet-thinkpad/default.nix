@@ -9,12 +9,19 @@
   networking.hostName = "rivet";
   networking.extraHosts = ''172.12.1.0 rivet'';
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
-
+  # after cloning the rivet repo run:
+  #   git lfs install
+  #   git lfs pull
   environment.systemPackages = with pkgs; [
     git-lfs
   ];
+
+  # when creating the main container in the rivet repo, rivet/bin/main
+  # will error out when it tries to create a group that already exists
+  # either comment out the groupadd command before creating the container
+  # or after creating the container, open a shell in the running container
+  #   docker exec -it main bash
+  # then run the useradd and chmod commands from the end of rivet/bin/main
 
   virtualisation.docker = {
     enable = true;
@@ -22,18 +29,12 @@
     daemon.settings = {
       experimental = true;
     };
-
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-
-      daemon.settings = {
-        experimental = true;
-      };
-    };
   };
 
   users.users.${config.username}.extraGroups = [ "docker" ];
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.autorandr = {
     enable = true;
