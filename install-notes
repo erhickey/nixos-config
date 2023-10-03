@@ -15,7 +15,9 @@ root partition
 Post Install
 ------------------
 - delete old nixos generations
-    nix-env --delete-generations old
+    delete links in /nix/var/nix/profiles
+    sudo nix store gc
+    nixos-rebuild & boot/switch
 
 - create mbsync/gmail password file
   - create gnupg user:
