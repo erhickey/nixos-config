@@ -1,7 +1,7 @@
+import Data.Maybe (fromMaybe)
 import XMonad
-  ( Full(Full), Tall(Tall), borderWidth, className, composeAll, def, doFloat, focusFollowsMouse, layoutHook
-  , manageHook, spawn, startupHook, terminal, windows, workspaces, xmonad, (-->), (=?), (|||), (<+>)
-  )
+import XMonad.Actions.OnScreen (Focus(FocusCurrent), onScreen)
+import XMonad.Actions.PhysicalScreens (getScreen, viewScreen)
 import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.InsertPosition (Focus(Newer), Position(Below), insertPosition)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
@@ -12,6 +12,24 @@ import qualified XMonad.StackSet as W
 import XMonad.Util.Cursor (setDefaultCursor, xC_left_ptr)
 import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.Ungrab (unGrab)
+import Graphics.X11.Xinerama (getScreenInfo)
+
+workspaceOnScreen p w = do
+    s <- getScreen def p
+    windows $ onScreen (W.view w) FocusCurrent (fromMaybe 0 s)
+
+numScreens :: X Int
+numScreens = withDisplay $ io . fmap length . getScreenInfo
+
+switchWorkspace ws = do
+  n <- numScreens
+  case n of
+    2 -> do
+      let screen = if ws == wsFour then 1 else 0
+      workspaceOnScreen screen ws
+      viewScreen def screen
+    _ -> do
+      windows $ W.view ws
 
 wsOne = "1"
 wsTwo = "2"
@@ -39,15 +57,17 @@ myManageHook = insertPosition Below Newer <+> composeAll
   , isDialog --> doCenterFloat
   ]
 
-myStartupHook = setDefaultCursor xC_left_ptr
-
--- use W.view instead of W.greedyView
-switchWorkspaceKeys =
-  [
-    (otherModMasks ++ "M-" ++ [key], action tag)
-    | (tag, key)  <- zip myWorkspaces "1234"
-    , (otherModMasks, action) <- [("", windows . W.view), ("S-", windows . W.shift)]
-  ]
+myStartupHook = do
+  setDefaultCursor xC_left_ptr
+  n <- numScreens
+  case n of
+    2 -> do
+      workspaceOnScreen 1 wsFour
+      workspaceOnScreen 0 wsOne
+      viewScreen def 0
+    _ -> do
+      workspaceOnScreen 0 wsOne
+      viewScreen def 0
 
 -- key map creation details:
 -- https://xmonad.github.io/xmonad-docs/xmonad-contrib/XMonad-Util-EZConfig.html#v:mkKeymap
@@ -64,7 +84,11 @@ myKeys =
   , ("<XF86AudioMicMute>", spawn "amixer -D pipewire set Capture toggle")
   , ("<XF86MonBrightnessDown>", spawn "light -U 5")
   , ("<XF86MonBrightnessUp>", spawn "light -A 5")
-  ] ++ switchWorkspaceKeys
+  , ("M-1", switchWorkspace wsOne)
+  , ("M-2", switchWorkspace wsTwo)
+  , ("M-3", switchWorkspace wsThree)
+  , ("M-4", switchWorkspace wsFour)
+  ]
 
 myConfig = def
     { terminal = "st"
