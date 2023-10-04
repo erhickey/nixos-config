@@ -123,10 +123,11 @@
     glow
     gnupg
     google-chrome
-    haskellPackages.haskell-language-server.out
+    haskellPackages.haskell-language-server
     isync
     jq
     keepassxc
+    lua-language-server
     maim
     neomutt
     neovim
