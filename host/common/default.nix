@@ -54,6 +54,32 @@
     pulse.enable = true;
   };
 
+  environment.etc = {
+    "pipewire/pipewire.conf.d/10-echo-cancel.conf".text = ''
+      context.modules = [
+        {
+          name = libpipewire-module-echo-cancel
+          args = {
+            # library.name  = aec/libspa-aec-webrtc
+            # monitor.mode = false
+            capture.props = {
+              node.name = "Echo Cancellation Capture"
+            }
+            source.props = {
+               node.name = "Echo Cancellation Source"
+            }
+            sink.props = {
+               node.name = "Echo Cancellation Sink"
+            }
+            playback.props = {
+               node.name = "Echo Cancellation Playback"
+            }
+          }
+        }
+      ]
+    '';
+  };
+
   users.users.${config.username} = {
     isNormalUser = true;
     extraGroups = [ "audio" "networkmanager" "video" "wheel" ];
