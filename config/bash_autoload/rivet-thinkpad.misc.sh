@@ -19,5 +19,15 @@ function pre_commit_hook() {
 	EOF
 }
 
+function userdotbazelrc() {
+  cat <<- 'EOF'
+		build --config=dev --define debug=true
+	EOF
+}
+
+function angularls() {
+  echo 'npm install -g @angular/language-server@14'
+}
+
 export DATABASE_URL=postgresql://rivet@localhost
 alias sql='vi "$HOME"/tmp/rivet.sql'
