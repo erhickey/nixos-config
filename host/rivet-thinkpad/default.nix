@@ -14,6 +14,7 @@
   #   git lfs pull
   environment.systemPackages = with pkgs; [
     git-lfs
+    postgresql
   ];
 
   # when creating the main container in the rivet repo, rivet/bin/main

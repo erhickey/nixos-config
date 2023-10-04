@@ -29,5 +29,5 @@ function angularls() {
   echo 'npm install -g @angular/language-server@14'
 }
 
-export DATABASE_URL=postgresql://rivet@localhost
+export DATABASE_URL=postgresql://rivet@rivet
 alias sql='vi "$HOME"/tmp/rivet.sql'
