@@ -149,8 +149,8 @@
     tree
     vim
     vlc
+    xautolock
     xclip
-    xidlehook
     xmonad-with-packages
     zig                   # treesitter dependency
     (polybar.override { pulseSupport = true; })
