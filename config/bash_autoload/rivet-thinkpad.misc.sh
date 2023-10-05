@@ -15,7 +15,7 @@ function pre_commit_hook() {
 		#!/usr/bin/env bash
 		set -eo pipefail
 		npx prettier --check $(git diff main --name-only --diff-filter=d -- '*.ts' '*.html')
-		node node_mdules/eslint/bin/eslint.js $(git diff main --name-only --diff-filter=d -- '*.ts')
+		node node_modules/eslint/bin/eslint.js $(git diff main --name-only --diff-filter=d -- '*.ts')
 	EOF
 }
 
