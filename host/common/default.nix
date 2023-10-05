@@ -42,6 +42,10 @@
     autoRepeatInterval = 50;
   };
 
+  services.physlock = {
+    enable = true;
+  };
+
   networking.networkmanager.enable = true;
 
   sound.enable = false;
@@ -146,6 +150,7 @@
     vim
     vlc
     xclip
+    xidlehook
     xmonad-with-packages
     zig                   # treesitter dependency
     (polybar.override { pulseSupport = true; })
