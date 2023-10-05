@@ -35,10 +35,7 @@
   users.users.${config.username}.extraGroups = [ "docker" ];
 
   boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver = {
-    videoDrivers = [ "amdgpu" ];
-    dpi = 79;
-  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   services.autorandr = {
     enable = true;
