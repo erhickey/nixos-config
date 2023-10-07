@@ -1,0 +1,7 @@
+{ context, ... }:
+{
+  imports = [
+    ./common
+    ./${context}
+  ];
+}
