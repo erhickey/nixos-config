@@ -29,6 +29,8 @@
     172.12.1.0 ${hostname}
   '';
 
+  services.getty.autologinUser = "${user}";
+
   environment = {
     sessionVariables = {
       DATABASE_URL = "postgresql://rivet@rivet";
