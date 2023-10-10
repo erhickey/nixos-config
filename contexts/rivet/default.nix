@@ -3,6 +3,7 @@
   environment.systemPackages = with pkgs; [
     git-lfs
     postgresql
+    thunderbird
   ];
 
   virtualisation.docker = {
@@ -11,33 +12,22 @@
     daemon.settings = {
       experimental = true;
     };
+
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+
+      daemon.settings = {
+        experimental = true;
+      };
+    };
   };
 
   users.users.${user}.extraGroups = [ "docker" ];
 
   networking.extraHosts = ''
     172.12.1.0 ${hostname}
-    169.254.169.254 ${hostname}
   '';
-
-  modules.mail = {
-    enable = true;
-  };
-
-  modules.gnupg.enable = true;
-
-  modules.polybar = {
-    enable = true;
-
-    layout = ''
-      modules-left = menu
-      modules-right = mail audio wlan battery date
-    '';
-
-    modules.mail = {
-      enable = true;
-    };
-  };
 
   environment = {
     sessionVariables = {

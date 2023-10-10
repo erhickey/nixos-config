@@ -8,7 +8,7 @@ in
     modules.polybar = {
       enable = mkOption {
         type = types.bool;
-        default = false;
+        default = true;
       };
 
       colors = mkOption {
@@ -265,52 +265,6 @@ in
           };
         };
 
-        mail = {
-          enable = mkOption {
-            type = types.bool;
-            default = false;
-          };
-
-          name = mkOption {
-            type = types.str;
-            default = "mail";
-          };
-
-          script = mkOption {
-            type = types.lines;
-            default = ''
-              #!/usr/bin/env bash
-
-              mail_dir="$1"
-              new=0
-
-              if [ -d "$mail_dir" ] ; then
-                for d in "$mail_dir"/*/new ; do
-                  new="$(("$new" + "$(find "$d" -type f | wc -l)"))"
-                done
-              fi
-
-              [ "$new" -gt 0 ] && echo "" || echo ""
-            '';
-          };
-
-          module = mkOption {
-            type = types.lines;
-            default = ''
-              type = custom/script
-              interval = 3
-
-              exec = /etc/xdg/polybar/mail.sh "$HOME/.mail/[Gmail]"
-
-              click-left = st neomutt
-
-              format = <label>
-              format-foreground = ''${colors.teal}
-              format-padding = 1
-            '';
-          };
-        };
-
         bluetooth = {
           enable = mkOption {
             type = types.bool;
@@ -440,11 +394,6 @@ in
         ]));
 
         mode = "0444";
-      };
-
-      etc."xdg/polybar/mail.sh" = {
-        text = cfg.modules.mail.script;
-        mode = "0555";
       };
     };
   };
