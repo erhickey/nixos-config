@@ -18,6 +18,8 @@
     };
   };
 
+  networking.hostName = "${hostname}";
+
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "LiberationMono" ]; })
   ];
@@ -26,12 +28,6 @@
     isNormalUser = true;
     shell = pkgs.bash;
     extraGroups = [ "wheel" ];
-  };
-
-  modules.networking = {
-    enable = true;
-    hostName = "${hostname}";
-    users = [ "${user}" ];
   };
 
   modules.pipewire = {
