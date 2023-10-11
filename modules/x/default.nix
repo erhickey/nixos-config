@@ -115,9 +115,6 @@ in
     };
 
     programs.bash.loginShellInit = ''
-      # hack, don't want to use home manager for one file though
-      cp /etc/xdg/startx/xinitrc "$HOME"/.xinitrc
-
       if [ -z "$DISPLAY" ] && [ "$(fgconsole 2> /dev/null || printf "0")" -eq 1 ] ; then
         startx
       fi
