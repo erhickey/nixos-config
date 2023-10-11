@@ -12,15 +12,6 @@
     daemon.settings = {
       experimental = true;
     };
-
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-
-      daemon.settings = {
-        experimental = true;
-      };
-    };
   };
 
   users.users.${user}.extraGroups = [ "docker" ];
@@ -41,16 +32,22 @@
   };
 
   # POST INSTALL NOTES
+
+  # install angular language server
+  #   npm install -g @angular/language-server@14
+
+  # follow instructions on Notion ODev Setup page
+
+  # add .ssh/config for multi ssh key support:
+  #   Host github-rivet.com
+  #   HostName github.com
+  #   IdentityFile ~/.ssh/PRIVATE_KEY
+  #   User git
+  #   IdentitiesOnly yes
+
   # after cloning the rivet repo run:
   #   git lfs install
   #   git lfs pull
-
-  # when creating the main container in the rivet repo, rivet/bin/main
-  # will error out when it tries to create a group that already exists
-  # either comment out the groupadd command before creating the container
-  # or after creating the container, open a shell in the running container
-  #   docker exec -it main bash
-  # then run the useradd and chmod commands from the end of rivet/bin/main
 
   # create commit hook
   #   #!/usr/bin/env bash
@@ -61,6 +58,17 @@
   # create user.bazelrc
   #   build --config=dev --define debug=true
 
-  # install angular language server
-  #   npm install -g @angular/language-server@14
+  # extract db-data.tar.xz to rivet/db
+  # reset the transaction log:
+  #   pg_resetwal -f db/data
+
+  # when creating the main container in the rivet repo, rivet/bin/main
+  # will error out when it tries to create a group that already exists
+  # either comment out the groupadd command before creating the container
+  # or after creating the container, open a shell in the running container
+  #   docker exec -it main bash
+  # then run the useradd and chmod commands from the end of rivet/bin/main
+  # may also need to fix the ownership on some directories:
+  #   chown -R rivet:users /home/USER/.cache/*
+  #   chown -R rivet:users /home/USER/repositories/rivet.out/*
 }
