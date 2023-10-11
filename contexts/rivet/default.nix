@@ -20,6 +20,8 @@
     172.12.1.0 ${hostname}
   '';
 
+  modules.drivestrike.enable = true;
+
   services.getty.autologinUser = "${user}";
 
   environment = {
