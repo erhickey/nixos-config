@@ -18,7 +18,10 @@
     };
   };
 
-  networking.hostName = "${hostname}";
+  networking = {
+    wireless.enable = true;
+    hostName = "${hostname}";
+  };
 
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = [ "LiberationMono" ]; })
