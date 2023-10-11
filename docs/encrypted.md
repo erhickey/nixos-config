@@ -24,7 +24,7 @@ mkfs.ext4 -L nixos /dev/vg/nixos
 Mount partitions:
 ```bash
 mount /dev/vg/nixos /mnt
-mkdir -p /mnt/boot
+mkdir /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
 swapon /dev/vg/swap
 ```

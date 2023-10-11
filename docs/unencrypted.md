@@ -16,7 +16,7 @@ mkfs.ext4 -L nixos /dev/sda3
 Mount partitions:
 ```bash
 mount /dev/disk/by-label/nixos /mnt
-mkdir -p /mnt/boot
+mkdir /mnt/boot
 mount /dev/disk/by-label/boot /mnt/boot
 swapon /dev/sda2
 ```

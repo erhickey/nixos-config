@@ -9,8 +9,14 @@ sudo dd if=nixos.iso of=/dev/sda
 ```
 Connect to wifi:
 ```bash
-wpa_passphrase SSID PASSPHRASE > /etc/wpa_supplicant.conf
+sudo -i
 systemctl start wpa_supplicant
+wpa_cli
+add_network
+set_network 0 ssid "SSID"
+set_network 0 psk "PASSPHRASE"
+set_network 0 key_mgmt WPA-PSK
+enable_network 0
 ```
 
 [Unencrypted File System Setup](./unencrypted.md)
@@ -20,19 +26,29 @@ systemctl start wpa_supplicant
 Generate/Edit Config:
 ```bash
 nixos-generate-config --root /mnt
-nix-env -f '<nixpkgs>' -iA vim
 ```
 
-Add `git` package and the following line(s) to `/etc/nixos/configuration.nix`
+Add `git` package and the following line(s) to `/mnt/etc/nixos/configuration.nix`
 ```nix
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
+networking.wireless.enable = true;
+```
+
+If an encrypted file system is being used, the following line may need to be added to `/mnt/etc/nixos/hardware-configuration.nix` (use `:r!blkid` in vim to easily get the /dev/sda2 UUID):
+```nix
+boot.initrd.luks.devices.crypto.device = "/dev/disk/by-uuid/UUID";
 ```
 
 Install/Reboot/Set User Password
 ```bash
 nixos-install
 reboot
-passwd USER
+```
+
+After reboot:
+```bash
+wpa_passphrase SSID PASSPHRASE > /etc/wpa_supplicant.conf
+systemctl restart wpa_supplicant.service
 ```
 
 - Clone this repo
@@ -44,3 +60,10 @@ passwd USER
     #example:
     sudo nixos-rebuild switch --flake .#personal-pavilion-g7-linux
     ```
+
+Post install:
+```bash
+passwd USER
+cp /etc/xdg/startx/xinitrc /home/USER/.xinitrc
+chown USER:users /home/USER/.xinitrc
+```
