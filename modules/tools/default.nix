@@ -23,6 +23,7 @@ in
       bat
       bc
       bottom
+      dnsutils
       fd
       file
       glow
