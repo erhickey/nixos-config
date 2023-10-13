@@ -19,7 +19,7 @@
   };
 
   networking = {
-    wireless.enable = true;
+    networkmanager.enable = true;
     hostName = "${hostname}";
   };
 
@@ -30,7 +30,7 @@
   users.users.${user} = {
     isNormalUser = true;
     shell = pkgs.bash;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" ];
   };
 
   modules.pipewire = {
