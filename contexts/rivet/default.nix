@@ -64,6 +64,12 @@
   # reset the transaction log:
   #   pg_resetwal -f db/data
 
+  # after importing vpn connection:
+  #   nmcli connection import type openvpn file <OVPN_FILE>
+  # make sure the connection is only used for resources on its network:
+  #   nmcli connection modify <CONN_NAME> ipv4.never-default true
+  #   nmcli connection modify <CONN_NAME> ipv6.never-default true
+
   # when creating the main container in the rivet repo, rivet/bin/main
   # will error out when it tries to create a group that already exists
   # either comment out the groupadd command before creating the container
