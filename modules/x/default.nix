@@ -113,11 +113,5 @@ in
       '';
       mode = "0555";
     };
-
-    programs.bash.loginShellInit = ''
-      if [ -z "$DISPLAY" ] && [ "$(fgconsole 2> /dev/null || printf "0")" -eq 1 ] ; then
-        startx
-      fi
-    '';
   };
 }
