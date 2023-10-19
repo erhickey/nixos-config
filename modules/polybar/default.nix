@@ -354,8 +354,6 @@ in
 
               ramp-capacity-0-foreground = ''${colors.red}
               ramp-capacity-1-foreground = ''${colors.red}
-              ramp-capacity-2-foreground = ''${colors.red}
-              ramp-capacity-9-foreground = ''${colors.red}
             '';
           };
         };
