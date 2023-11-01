@@ -103,7 +103,7 @@ in
         command -v feh && feh --no-fehbg --bg-fill /etc/xdg/backgrounds/background.jpg
         command -v polybar && polybar 2>&1 | tee -a /tmp/polybar.log &
         command -v autorandr && autorandr -c
-        command -v xset && command -v xss-lock && xset s on ; xset s 600 ; xss-lock systemctl suspend &
+        command -v xset && command -v xss-lock && xset s on ; xset s 3600 ; xss-lock systemctl suspend &
 
         # get picom service working, is there a better solution?
         systemctl --user import-environment XAUTHORITY DISPLAY
