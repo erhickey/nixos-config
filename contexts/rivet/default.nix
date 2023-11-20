@@ -3,7 +3,6 @@
   environment.systemPackages = with pkgs; [
     git-lfs
     postgresql
-    thunderbird
   ];
 
   virtualisation.docker = {
@@ -19,6 +18,9 @@
   networking.extraHosts = ''
     172.12.1.0 ${hostname}
   '';
+
+  modules.dunst.enable = true;
+  modules.pycal.enable = true;
 
   modules.drivestrike.enable = true;
 

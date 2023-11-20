@@ -26,6 +26,7 @@ in
       dnsutils
       fd
       file
+      findutils
       glow
       jq
       neovim
