@@ -58,7 +58,7 @@ in {
 
       services."cal-notify" = {
         script = ''
-          ${pycal}/bin/pycal.py -n 10 | ${pkgs.findutils}/bin/xargs --no-run-if-empty -L1 ${pkgs.dunst}/bin/dunstify
+          ${pycal}/bin/pycal -n 10 | ${pkgs.findutils}/bin/xargs --no-run-if-empty -L1 ${pkgs.dunst}/bin/dunstify
         '';
 
         serviceConfig = {
