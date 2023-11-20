@@ -33,17 +33,19 @@ import recurring_ical_events
 
 
 class color:
-   PURPLE = '\033[95m'
-   CYAN = '\033[96m'
+   PURPLE = '\033[35m'
+   CYAN = '\033[36m'
    DARKCYAN = '\033[36m'
-   BLUE = '\033[94m'
-   GREEN = '\033[92m'
-   YELLOW = '\033[93m'
-   RED = '\033[91m'
+   BLUE = '\033[34m'
+   GREEN = '\033[32m'
+   YELLOW = '\033[33m'
+   RED = '\033[31m'
    BOLD = '\033[1m'
    UNDERLINE = '\033[4m'
    END = '\033[0m'
 
+
+LOCATION_KEYWORDS = ['google', 'zoom']
 
 def get_events(start, end):
     with open(os.path.expanduser('~/.config/pycal/calendar.ics')) as f:
@@ -62,6 +64,16 @@ def print_calendar(events, timezone):
             print_event(e, timezone)
 
 
+def get_event_url(event):
+    google_conf = event.get('X-GOOGLE-CONFERENCE')
+    if google_conf is not None:
+        return google_conf
+    loc = event.get('LOCATION')
+    if loc is not None and any(kw in loc.lower() for kw in LOCATION_KEYWORDS):
+        return loc
+    return None
+
+
 def print_event(event, timezone):
     start_time = event.get('DTSTART').dt
     end_time = event.get('DTEND').dt
@@ -70,7 +82,9 @@ def print_event(event, timezone):
     if isinstance(start_time, datetime) and isinstance(end_time, datetime):
         start_time = arrow.get(start_time).to(timezone).format('HH:mm')
         end_time = arrow.get(end_time).to(timezone).format('HH:mm')
-        print(f'\t{start_time} - {end_time}  {color.BOLD}{name}{color.END}')
+        url = get_event_url(event)
+        url = f' - {color.BLUE}{url}{color.END}' if url is not None else ''
+        print(f'\t{start_time} - {end_time}  {color.BOLD}{name}{color.END}{url}')
     else:
         print(f'\t   All Day     {color.BOLD}{name}{color.END}')
 
