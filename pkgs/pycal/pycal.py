@@ -89,7 +89,7 @@ def print_event(event, timezone):
         print(f'\t   All Day     {color.BOLD}{name}{color.END}')
 
 
-def print_notification(event, timezone):
+def print_notification(event, timezone, is_now=False):
     start_time = event.get('DTSTART').dt
     end_time = event.get('DTEND').dt
     name = event.get('SUMMARY')
@@ -97,15 +97,23 @@ def print_notification(event, timezone):
     if isinstance(start_time, datetime) and isinstance(end_time, datetime):
         start_time = arrow.get(start_time).to(timezone).format('HH:mm')
         end_time = arrow.get(end_time).to(timezone).format('HH:mm')
-        print(f'"{name}" "{start_time} - {end_time}"')
+        timeout = (1000 * 60 * 5) if is_now else (1000 * 60 * 10)
+        urgency = 'critical' if is_now else 'normal'
+        print(f'"{name}" "{start_time} - {end_time}" -t {timeout} -u {urgency}')
     else:
-        print(f'"{name}" "All Day"')
+        if not is_now:
+            print(f'"{name}" "All Day" -t {1000 * 60 * 5}')
 
 
 def starting_in_filter(event, dt):
     start_time = event.get('DTSTART').dt
+    return isinstance(start_time, datetime) and start_time.minute == dt.minute
+
+
+def starting_now_filter(event):
+    start_time = event.get('DTSTART').dt
     now = arrow.now().datetime
-    return start_time.minute == dt.minute or start_time.minute == now.minute
+    return isinstance(start_time, datetime) and start_time.minute == now.minute
 
 
 if __name__ == '__main__':
@@ -138,6 +146,9 @@ if __name__ == '__main__':
         start = arrow.now()
         end = start.shift(**{'minutes': args['--notifications']})
         events = get_events(start.datetime, end.datetime)
-        events = filter(lambda e: starting_in_filter(e, end.datetime), events)
-        for e in events:
+        soon_events = filter(lambda e: starting_in_filter(e, end.datetime), events)
+        now_events = filter(lambda e: starting_now_filter(e), events)
+        for e in now_events:
+            print_notification(e, 'local', True)
+        for e in soon_events:
             print_notification(e, 'local')
