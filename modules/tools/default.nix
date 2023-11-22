@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 with lib;
 let
   cfg = config.modules.tools;
@@ -29,7 +29,7 @@ in
       findutils
       glow
       jq
-      neovim
+      unstable.legacyPackages."${pkgs.system}".neovim
       ripgrep
       tealdeer
       tmux

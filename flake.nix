@@ -1,9 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = { nixpkgs, unstable, ... }@inputs:
   let
     lib = nixpkgs.lib;
 
@@ -73,6 +74,7 @@
               stateVersion
               system
               timezone
+              unstable
               user
             ;
           };
