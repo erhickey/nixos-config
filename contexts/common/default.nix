@@ -1,4 +1,4 @@
-{ hostname, locale, pkgs, timezone, user, ... }:
+{ defaultBrowser, hostname, locale, pkgs, timezone, user, ... }:
 {
   time.timeZone = "${timezone}";
 
@@ -31,6 +31,28 @@
     isNormalUser = true;
     shell = pkgs.bash;
     extraGroups = [ "networkmanager" "wheel" ];
+  };
+
+  xdg.mime = {
+    enable = true;
+
+    defaultApplications = {
+      "text/html" = "${defaultBrowser}";
+      "x-scheme-handler/http" = "${defaultBrowser}";
+      "x-scheme-handler/https" = "${defaultBrowser}";
+      "x-scheme-handler/about" = "${defaultBrowser}";
+      "x-scheme-handler/unknown" = "${defaultBrowser}";
+    };
+  };
+
+  # configure printers: http://localhost:631
+  services.printing.enable = true;
+
+  # enable autodiscovery of network printers
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
   };
 
   modules.pipewire = {

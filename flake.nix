@@ -36,6 +36,7 @@
         hostname = "home";
         timezone = "America/New_York";
         locale = "en_US.UTF-8";
+        defaultBrowser = "firefox.desktop";
       }
       {
         context = "rivet";
@@ -43,6 +44,7 @@
         hostname = "rivet";
         timezone = "America/New_York";
         locale = "en_US.UTF-8";
+        defaultBrowser = "firefox.desktop";
       }
     ];
 
@@ -64,6 +66,7 @@
           specialArgs = {
             inherit
               context
+              defaultBrowser
               host
               hostname
               inputs

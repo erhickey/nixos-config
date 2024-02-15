@@ -77,6 +77,7 @@ myKeys =
   , ("M-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 ~/tmp/$(date +%Y_%m_%d__%H_%M_%S_maim).png")
   , ("M-S-s", unGrab *> spawn "maim -slDc 0.8,0.8,0.2,0.5 | xclip -selection clipboard -t image/png")
   , ("M-p", spawn "dmenu_run -i -fn 'LiterationMono Nerd Font'")
+  , ("M-f", spawn "firefox")
   , ("M-g", spawn "google-chrome-stable")
   , ("<XF86AudioMute>", spawn "amixer -D pipewire set Master 1+ toggle")
   , ("<XF86AudioLowerVolume>", spawn "amixer -D pipewire set Master 5%- unmute")
