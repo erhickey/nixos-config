@@ -15,6 +15,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
+      delta
       ghc
       git
       haskellPackages.haskell-language-server
