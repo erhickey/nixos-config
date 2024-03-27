@@ -16,7 +16,7 @@
   users.users.${user}.extraGroups = [ "docker" ];
 
   networking.extraHosts = ''
-    172.12.1.0 ${hostname}
+    172.12.1.0 rivet
   '';
 
   modules.dunst.enable = true;

@@ -41,7 +41,7 @@
       {
         context = "rivet";
         user = "eddie";
-        hostname = "rivet";
+        hostname = "eddie-rivet";
         timezone = "America/New_York";
         locale = "en_US.UTF-8";
         defaultBrowser = "firefox.desktop";
