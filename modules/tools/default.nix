@@ -23,6 +23,7 @@ in
       bat
       bc
       bottom
+      csvtool
       dnsutils
       fd
       file
