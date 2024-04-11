@@ -1,4 +1,4 @@
-{ hostname, pkgs, user, ... }:
+{ pkgs, user, ... }:
 {
   environment.systemPackages = with pkgs; [
     git-lfs
