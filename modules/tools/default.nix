@@ -35,6 +35,7 @@ in
       tealdeer
       tmux
       tree
+      unzip
       vim
     ];
   };
