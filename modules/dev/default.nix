@@ -18,6 +18,7 @@ in
       delta
       ghc
       git
+      gnumake   # treesitter dependency
       haskellPackages.haskell-language-server
       lua-language-server
       nil   # nix language server
