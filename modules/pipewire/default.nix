@@ -27,7 +27,6 @@ in
       pavucontrol
     ];
 
-    sound.enable = false;
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
 
@@ -36,32 +35,30 @@ in
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-    };
 
-    environment.etc = {
-      "pipewire/pipewire.conf.d/10-echo-cancel.conf".text = ''
-        context.modules = [
+      extraConfig.pipewire = {
+       "10-echo-cancel.conf" = {
+        "context.modules" = [
           {
-            name = libpipewire-module-echo-cancel
-            args = {
-              # library.name  = aec/libspa-aec-webrtc
-              # monitor.mode = false
-              capture.props = {
-                node.name = "Echo Cancellation Capture"
-              }
-              source.props = {
-                 node.name = "Echo Cancellation Source"
-              }
-              sink.props = {
-                 node.name = "Echo Cancellation Sink"
-              }
-              playback.props = {
-                 node.name = "Echo Cancellation Playback"
-              }
-            }
+            "name" = "libpipewire-module-echo-cancel";
+            "args" = {
+              "capture.props" = {
+                "node.name" = "Echo Cancellation Capture";
+              };
+              "source.props" = {
+                 "node.name" = "Echo Cancellation Source";
+              };
+              "sink.props" = {
+                 "node.name" = "Echo Cancellation Sink";
+              };
+              "playback.props" = {
+                 "node.name" = "Echo Cancellation Playback";
+              };
+            };
           }
-        ]
-      '';
+        ];
+       };
+      };
     };
 
     users.users = builtins.listToAttrs (map (user: {

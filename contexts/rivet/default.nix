@@ -66,7 +66,7 @@
   # reset the transaction log:
   #   pg_resetwal -f db/data
 
-  # after importing vpn connection:
+  # import vpn connection:
   #   nmcli connection import type openvpn file <OVPN_FILE>
   # make sure the connection is only used for resources on its network:
   #   nmcli connection modify <CONN_NAME> ipv4.never-default true

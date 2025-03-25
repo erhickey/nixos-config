@@ -60,8 +60,8 @@ in
       ];
 
       # keyboard settings
-      layout = "us";
-      xkbVariant = "";
+      xkb.layout = "us";
+      xkb.variant = "";
       autoRepeatDelay = 250;
       autoRepeatInterval = 50;
 

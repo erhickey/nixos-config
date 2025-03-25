@@ -23,7 +23,7 @@
     hostName = "${hostname}";
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "LiberationMono" ]; })
   ];
 
@@ -51,7 +51,7 @@
   # enable autodiscovery of network printers
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
