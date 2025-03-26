@@ -1,10 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { nixpkgs, unstable, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, ... }@inputs:
   let
     lib = nixpkgs.lib;
 
@@ -58,6 +58,7 @@
     nixosConfigurations = builtins.listToAttrs (map (p:
       let
         system = "${p.arch}-${p.os}";
+        pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
       in
       with p; {
         name = "${context}-${host}-${os}";
@@ -74,10 +75,10 @@
               listdirs
               locale
               nixpkgs
+              pkgs-unstable
               stateVersion
               system
               timezone
-              unstable
               user
             ;
           };
