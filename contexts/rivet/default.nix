@@ -1,6 +1,7 @@
-{ pkgs, user, ... }:
+{ pkgs, pkgs-unstable, user, ... }:
 {
   environment.systemPackages = with pkgs; [
+    pkgs-unstable.claude-code
     git-lfs
     postgresql
   ];
@@ -39,6 +40,18 @@
 
   # install angular language server
   #   npm install -g @angular/language-server@14
+
+  # add ~/.claude/settings.json
+  # {
+  #   "env": {
+  #     "CLAUDE_CODE_USE_BEDROCK": "true",
+  #     "AWS_REGION": "us-west-2",
+  #     "AWS_PROFILE": "rivet-dev",
+  #     "DISABLE_TELEMETRY": "1",
+  #     "DISABLE_BUG_COMMAND": "1",
+  #     "DISABLE_ERROR_REPORTING": "1"
+  #   }
+  # }
 
   # follow instructions on Notion ODev Setup page
 
