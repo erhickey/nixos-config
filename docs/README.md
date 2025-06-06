@@ -67,3 +67,11 @@ passwd USER
 cp /etc/xdg/startx/xinitrc /home/USER/.xinitrc
 chown USER:users /home/USER/.xinitrc
 ```
+
+# Upgrade
+
+- Update `nixpkgs.url` and `stateVersion` in `flake.nix`
+- Update `nixpkgs-unstable` with the following command:
+    ```bash
+    nix flake update nixpkgs-unstable
+    ```

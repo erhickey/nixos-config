@@ -24,7 +24,7 @@
   };
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "LiberationMono" ]; })
+    nerd-fonts.liberation
   ];
 
   users.users.${user} = {

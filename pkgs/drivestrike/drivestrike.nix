@@ -26,7 +26,7 @@ in with pkgs; stdenv.mkDerivation {
 
   nativeBuildInputs = [ autoPatchelfHook wrapGAppsHook glib glib-networking makeWrapper ];
 
-  buildInputs = [ dpkg libsoup dmidecode ];
+  buildInputs = [ dpkg libsoup_2_4 dmidecode ];
 
   dontUnpack = true;
 

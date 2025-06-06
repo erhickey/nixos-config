@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
@@ -8,7 +8,7 @@
   let
     lib = nixpkgs.lib;
 
-    stateVersion = "23.05";
+    stateVersion = "25.05";
 
     oss = [
       { os = "linux"; }
@@ -58,7 +58,10 @@
     nixosConfigurations = builtins.listToAttrs (map (p:
       let
         system = "${p.arch}-${p.os}";
-        pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+        pkgs-unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
       in
       with p; {
         name = "${context}-${host}-${os}";
