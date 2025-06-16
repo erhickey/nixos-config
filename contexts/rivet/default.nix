@@ -4,6 +4,8 @@
     pkgs-unstable.claude-code
     git-lfs
     postgresql
+    qemu
+    quickemu
   ];
 
   virtualisation.docker = {
