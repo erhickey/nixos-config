@@ -29,6 +29,7 @@ in
       file
       findutils
       glow
+      go-grip
       jq
       pkgs-unstable.neovim
       ripgrep
