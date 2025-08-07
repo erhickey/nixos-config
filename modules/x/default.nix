@@ -62,8 +62,8 @@ in
       # keyboard settings
       xkb.layout = "us";
       xkb.variant = "";
-      autoRepeatDelay = 250;
-      autoRepeatInterval = 50;
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 20;
 
       windowManager.xmonad = {
         enable = true;
