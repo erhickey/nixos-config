@@ -2,7 +2,6 @@
 {
   imports = [
     ./common
-    ./${host}/hardware-configuration.nix
     ./${host}
-  ];
+  ] ++ (if host == "wsl" then [ ] else [ ./${host}/hardware-configuration.nix ]);
 }

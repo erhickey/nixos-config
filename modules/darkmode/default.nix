@@ -8,7 +8,7 @@ in
     modules.darkmode = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
       };
     };
   };

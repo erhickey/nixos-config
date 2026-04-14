@@ -2,9 +2,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-wsl.url = "github:nix-community/nixos-wsl";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, nixos-wsl, ... }@inputs:
   let
     lib = nixpkgs.lib;
 
@@ -27,6 +28,10 @@
         host = "thinkpad-e15";
         arch = "x86_64";
       }
+      {
+        host = "wsl";
+        arch = "x86_64";
+      }
     ];
 
     contexts = [
@@ -41,10 +46,16 @@
       {
         context = "rivet";
         user = "eddie";
-        hostname = "eddie-rivet";
+        hostname = "rivet";
         timezone = "America/New_York";
         locale = "en_US.UTF-8";
         defaultBrowser = "firefox.desktop";
+      }
+      {
+        context = "zelis";
+        user = "nixos";
+        hostname = "zelis";
+        timezone = "America/New_York";
       }
     ];
 
@@ -90,7 +101,7 @@
             ./modules
             ./hosts
             ./contexts
-          ];
+          ] ++ (if host == "wsl" then [ nixos-wsl.nixosModules.wsl ] else [ ]);
         };
       }
     ) configPermutations );

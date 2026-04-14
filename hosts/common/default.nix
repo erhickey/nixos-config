@@ -1,4 +1,4 @@
-{ inputs, pkgs, stateVersion, ... }:
+{ host, inputs, pkgs, stateVersion, timezone, ... }:
 {
   system.stateVersion = "${stateVersion}";
 
@@ -10,8 +10,7 @@
     settings.experimental-features = [ "nix-command" "flakes" ];
   };
 
-  boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-  };
+  time.timeZone = "${timezone}";
+
+  imports = if host == "wsl" then [ ] else [ ./non-wsl.nix ];
 }

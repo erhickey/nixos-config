@@ -16,16 +16,16 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       delta
+      gcc
       ghc
       git
-      gnumake   # treesitter dependency
       haskellPackages.haskell-language-server
       lua-language-server
       nil   # nix language server
       nodejs
       nodePackages.npm
       python3
-      zig   # treesitter dependency
+      tree-sitter
     ];
   };
 }

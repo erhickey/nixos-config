@@ -75,3 +75,7 @@ chown USER:users /home/USER/.xinitrc
     ```bash
     nix flake update nixpkgs-unstable
     ```
+
+# Miscellaneous Notes
+
+[WSL](./wsl-notes.md)

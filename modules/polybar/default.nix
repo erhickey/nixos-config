@@ -8,7 +8,7 @@ in
     modules.polybar = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
       };
 
       colors = mkOption {
