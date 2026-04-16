@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/nixos-wsl";
   };
@@ -9,7 +9,7 @@
   let
     lib = nixpkgs.lib;
 
-    stateVersion = "25.05";
+    stateVersion = "25.11";
 
     oss = [
       { os = "linux"; }
